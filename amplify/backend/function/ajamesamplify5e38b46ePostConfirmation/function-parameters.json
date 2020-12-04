@@ -1,0 +1,17 @@
+{
+  "trigger": true,
+  "modules": [
+    "add-to-group"
+  ],
+  "parentResource": "ajamesamplify5e38b46e",
+  "functionName": "ajamesamplify5e38b46ePostConfirmation",
+  "resourceName": "ajamesamplify5e38b46ePostConfirmation",
+  "parentStack": "auth",
+  "triggerEnvs": "[]",
+  "triggerDir": "/home/nick/.nvm/versions/node/v14.5.0/lib/node_modules/@aws-amplify/cli/node_modules/amplify-category-auth/provider-utils/awscloudformation/utils/../triggers/PostConfirmation",
+  "triggerTemplate": "PostConfirmation.json.ejs",
+  "roleName": "ajamesamplify5e38b46ePostConfirmation",
+  "skipEdit": true,
+  "GROUP": "Regular",
+  "triggerEventPath": "PostConfirmation.event.json"
+}
