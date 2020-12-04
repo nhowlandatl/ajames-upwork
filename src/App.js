@@ -1,55 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
-import Amplify, { Auth } from 'aws-amplify';
 import React, { Component } from "react";
-import awsconfig from './aws-exports';
-Amplify.configure(awsconfig);
+import {
+  Route, BrowserRouter as Router, Switch
+} from 'react-router-dom';
+import Admin from "./Components/Admin"
+import ProtectedRoutes from "./Components/ProtectedRoutes"
 
-export class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      adminStatus: false,
-      currentUser: ""
-    };
-  }
-  componentDidMount() {
-    // Auth.currentSession will retreive JWT and which Cognito group the user belongs to
-    Auth.currentSession()
-      .then(user => {
-        console.log(user.accessToken.payload)
-        this.setState({
-          // Set the current user in state
-          currentUser: user
-        })
-        // See which group the user belongs to and specify admin status
-        console.log(this.state.currentUser)
-        if(user.accessToken.payload['cognito:groups'][1] === "Admin") {
-          this.setState({ 
-            adminStatus: true 
-          });
-        }
-      })
-  }
-
+class App extends Component {
   render() {
-    return (
-      <div>
-        {/* Conditional rendering based on admin status */}
-      {this.state.adminStatus === true ? 
-        <div>
-          <h2>You have admin privileges</h2>
-          <h5>Click here to enter the admin console</h5>
-        </div>
-        :
-        <div>
-          <h2></h2>
-          <h2>You do not have admin privileges</h2>
-          <h5>Click here to enter the regular user console</h5>
-        </div>
-        }
-    </div>
-    
+    return ( 
+      <div className="App">
+        <Router>
+          <Switch>
+              <Route path ='/admin' component={Admin}/>
+              {/* Implement non-admin route later */}
+              {/* <route path ='/user' component={User}/>  */}
+          </Switch>
+      </Router>
+      </div>
     );
   }
 }
