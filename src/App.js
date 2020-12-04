@@ -1,35 +1,55 @@
 import logo from './logo.svg';
 import './App.css';
-import { Auth } from 'aws-amplify';
+import Amplify, { Auth } from 'aws-amplify';
 import React, { Component } from "react";
+import awsconfig from './aws-exports';
+Amplify.configure(awsconfig);
 
 export class App extends Component {
-
+  constructor(props) {
+    super(props);
+    this.state = {
+      adminStatus: false,
+      currentUser: ""
+    };
+  }
   componentDidMount() {
-    Auth.currentUserInfo()
+    // Auth.currentSession will retreive JWT and which Cognito group the user belongs to
+    Auth.currentSession()
       .then(user => {
-        console.log(user)
+        console.log(user.accessToken.payload)
+        this.setState({
+          // Set the current user in state
+          currentUser: user
+        })
+        // See which group the user belongs to and specify admin status
+        console.log(this.state.currentUser)
+        if(user.accessToken.payload['cognito:groups'][1] === "Admin") {
+          this.setState({ 
+            adminStatus: true 
+          });
+        }
       })
   }
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React test
-          </a>
-        </header>
-      </div>
+      <div>
+        {/* Conditional rendering based on admin status */}
+      {this.state.adminStatus === true ? 
+        <div>
+          <h2>You have admin privileges</h2>
+          <h5>Click here to enter the admin console</h5>
+        </div>
+        :
+        <div>
+          <h2></h2>
+          <h2>You do not have admin privileges</h2>
+          <h5>Click here to enter the regular user console</h5>
+        </div>
+        }
+    </div>
+    
     );
   }
 }
