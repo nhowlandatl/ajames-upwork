@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Amplify from 'aws-amplify'
 import awsconfig from './aws-exports';
-import Router from './Router';
 import App from './App'
 Amplify.configure(awsconfig);
 

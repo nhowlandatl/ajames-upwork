@@ -1,18 +1,18 @@
-// ./components/Admin.jsx
+// ./components/Regular.jsx
 
 // Don't think I need to use private route since root (App.js) already phones home to AWS
-// import PrivacyHOC from '../HOCs/PrivacyHOC.jsx' 
+// import RegularPrivacyHOC from '../HOCs/RegularPrivacyHOC.jsx'
 import React from 'react';
 
-class Admin extends React.Component {
+class Regular extends React.Component {
     // Retrieve user info
     render () {
         return (
             <div>
-                {this.props.admin === true && this.props.userInfo &&
+                {this.props.regular === true && this.props.userInfo &&
                 <div>
                     <h2>Hello, {this.props.userInfo.attributes.name}</h2> 
-                    <h2>You are viewing the administrator board</h2>
+                    <h2>You are viewing the non-admin board</h2>
                 </div>
                 }
             </div>
@@ -20,4 +20,4 @@ class Admin extends React.Component {
     }
 };
 
-export default (Admin);
+export default (Regular);

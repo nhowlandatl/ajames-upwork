@@ -1,14 +1,14 @@
 import React from 'react';
 
-export default function PrivacyHOC(WrappedComponent) {
+export default function RegularPrivacyHOC(WrappedComponent2) {
     return (
-        class PrivacyHOC extends React.Component {
+        class RegularPrivacyHOC extends React.Component {
             isLoggedIn = () => {
                 return this.props.loggedIn
             }
             render () {
                 return this.isLoggedIn() ?
-                    <WrappedComponent {...this.props} /> 
+                    <WrappedComponent2 {...this.props} /> 
                     : // or render this
                     this.props.loggedIn === false && <h1>You must be logged in</h1> 
                     // <OtherComponent/> 
