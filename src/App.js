@@ -1,9 +1,9 @@
 import React, { Component } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, withRouter } from "react-router-dom";
 
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Navbar, Nav } from 'react-bootstrap';
+import { Navbar, Nav, Spinner } from 'react-bootstrap';
 
 // Components
 import Admin from './Components/Admin.jsx' // Admin user dashboard view
@@ -25,11 +25,20 @@ class App extends Component {
       admin: false,
       regular: false,
       userInfo: null,
-      IsAuthenticating: true
+      // Add spinner icon to page when isAuthenticating is true
+      isLoading: false
     };
   }
 
+  async handleLogout() {
+    await Auth.signOut()
+    this.setState({
+      loggedIn: false
+    })
+  }
+
   async onLoad() {
+    // this.setState({isLoading: true}) 
     // Auth.currentSession will retreive JWT and which Cognito group the user belongs to immediately when page loads
     try {
       await Auth.currentSession()
@@ -53,13 +62,14 @@ class App extends Component {
           });
           console.log(this.state.loggedIn)
         }
-        else (console.log("auth failed"))
       })
-      Auth.currentUserInfo()
+      await Auth.currentUserInfo()
       .then(currentUser => {
           console.log(currentUser)
           this.setState({
-              userInfo: currentUser 
+            userInfo: currentUser,
+            IsAuthenticating: false,
+            isLoading: false
           })
       })
     }
@@ -68,12 +78,14 @@ class App extends Component {
         alert(e);
       }
     }
+    // Temporary solution. Need to turn off load spinner if it doesn't detect user in the catch block.
     this.setState({
-      IsAuthenticating: false
+      isLoading: false
     })
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+    this.setState({isLoading: true})
     // Check AWS login status upon load
     this.onLoad();
   }
@@ -94,12 +106,17 @@ class App extends Component {
                 <Nav.Link href="https://ajamesamplify5e38b46e-5e38b46e-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1noet1mlcvhpi2dhb3i6h6gpum&redirect_uri=http://localhost:3000/">Signup or Login</Nav.Link>
                 }
                 {this.state.loggedIn === true &&
-                  <div>Sign out</div>
+                  <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
                 }
               </Nav>
             </Navbar.Collapse>
         </Navbar>
           <Switch>
+              {this.state.isLoading &&
+                <Spinner animation="border" role="status">
+                  <span className="sr-only">Loading...</span>
+                </Spinner>
+              }
             {/* Default homepage after login/register redirect */}
             <Route exact path ="/">
               {/* Admin is the admin dashboard for now */}
@@ -130,4 +147,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default withRouter(App);
