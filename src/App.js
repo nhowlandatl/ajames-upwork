@@ -4,12 +4,15 @@ import { Route, Switch, withRouter } from "react-router-dom";
 // Bootstrap
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, Nav, Spinner } from 'react-bootstrap';
+import { LinkContainer } from "react-router-bootstrap"; 
 
 // Components
 import Admin from './Components/Admin.jsx' // Admin user dashboard view
 import Regular from './Components/Regular.jsx' // Regular user dashboard view
 // import Routes from './Routes.jsx' 
 import NotFound from './Components/NotFound.jsx'
+import Settings from './Components/Settings.jsx'
+import ChangeEmail from './Components/ChangeEmail.jsx'
 
 // AWS
 import Amplify, { Auth } from 'aws-amplify';
@@ -38,9 +41,7 @@ class App extends Component {
   }
 
   async onLoad() {
-    // this.setState({isLoading: true}) 
     // Auth.currentSession will retreive JWT and which Cognito group the user belongs to immediately when page loads
-    try {
       await Auth.currentSession()
       .then(user => {
         this.setState({
@@ -63,6 +64,10 @@ class App extends Component {
           console.log(this.state.loggedIn)
         }
       })
+      .catch(e => 
+        alert(e + ": You need to log in first")
+      )
+      // Get current user name/email
       await Auth.currentUserInfo()
       .then(currentUser => {
           console.log(currentUser)
@@ -72,16 +77,9 @@ class App extends Component {
             isLoading: false
           })
       })
-    }
-    catch(e) {
-      if (e !== 'No current user') {
-        alert(e);
-      }
-    }
-    // Temporary solution. Need to turn off load spinner if it doesn't detect user in the catch block.
-    this.setState({
-      isLoading: false
-    })
+      .catch(e => 
+        alert(e + ": You need to log in first")
+      )
   }
 
   async componentDidMount() {
@@ -102,12 +100,19 @@ class App extends Component {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Nav>
+               
                 {this.state.loggedIn !== true &&
                 <Nav.Link href="https://ajamesamplify5e38b46e-5e38b46e-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1noet1mlcvhpi2dhb3i6h6gpum&redirect_uri=http://localhost:3000/">Signup or Login</Nav.Link>
                 }
                 {this.state.loggedIn === true &&
                   <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
                 }
+                {this.state.loggedIn === true &&
+               <LinkContainer to="/settings">
+                <Nav.Link>Settings</Nav.Link>
+                </LinkContainer>
+                }
+               
               </Nav>
             </Navbar.Collapse>
         </Navbar>
@@ -134,9 +139,16 @@ class App extends Component {
                 userInfo={this.state.userInfo}
               />
             </Route>
+            <Route exact path="/settings">
+              <ChangeEmail /> 
+            </Route>
+            {/* <Route exact path="/settings">
+              <Settings />
+            </Route> */}
+
             {/* Catch-all route for error */}
             <Route>
-            <NotFound />
+             <NotFound />
             </Route>
           </Switch>
             {/* Passes in the state of Cognito user as props */}
