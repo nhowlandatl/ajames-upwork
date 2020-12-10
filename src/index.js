@@ -1,15 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import Amplify from 'aws-amplify'
-import awsconfig from './aws-exports';
+import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App'
-Amplify.configure(awsconfig);
+
+// // AWS 
+// import Amplify from 'aws-amplify'
+// import awsconfig from './aws-exports';
+
+// Amplify.configure(awsconfig);
 
 
 ReactDOM.render(
   <React.StrictMode>
-    <App /> 
+    <Router>
+      <App /> 
+    </Router>
   </React.StrictMode>,
   document.getElementById('root')
 );

@@ -1,9 +1,15 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch } from "react-router-dom";
+
+// Bootstrap
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Navbar, Nav } from 'react-bootstrap';
 
 // Components
 import Admin from './Components/Admin.jsx' // Admin user dashboard view
 import Regular from './Components/Regular.jsx' // Regular user dashboard view
+// import Routes from './Routes.jsx' 
+import NotFound from './Components/NotFound.jsx'
 
 // AWS
 import Amplify, { Auth } from 'aws-amplify';
@@ -18,13 +24,15 @@ class App extends Component {
       loggedIn: false,
       admin: false,
       regular: false,
-      userInfo: null 
+      userInfo: null,
+      IsAuthenticating: true
     };
   }
 
-  componentDidMount() {
+  async onLoad() {
     // Auth.currentSession will retreive JWT and which Cognito group the user belongs to immediately when page loads
-    Auth.currentSession()
+    try {
+      await Auth.currentSession()
       .then(user => {
         this.setState({
           loggedIn: true,
@@ -54,31 +62,70 @@ class App extends Component {
               userInfo: currentUser 
           })
       })
+    }
+    catch(e) {
+      if (e !== 'No current user') {
+        alert(e);
+      }
+    }
+    this.setState({
+      IsAuthenticating: false
+    })
   }
-  
+
+  componentDidMount() {
+    // Check AWS login status upon load
+    this.onLoad();
+  }
+
   render() {
     return ( 
-      <div className="App">
-        {/* Change to do re-direct to correct page with exact path */}
-        <Router>
-          {/* Passes in the state of Cognito user as props */}
-          {/* Likely can re-factor to reduce redundancy */}
-          {/* Admin is the admin dashboard for now */}
-          <Admin 
-            loggedIn={this.state.loggedIn}
-            admin={this.state.admin}
-            currentUser={this.state.currentUser}
-            userInfo={this.state.userInfo}
-          />
-          {/* Regular is the non-admin dashboard for now */}
-          <Regular
-            loggedIn={this.state.loggedIn}
-            regular={this.state.regular}
-            currentUser={this.state.currentUser}
-            userInfo={this.state.userInfo}
-          /> 
-        </Router>
-      </div>
+      !this.state.isAuthenticating && (
+        <div className="App">
+          {/* Navbar component */}
+          <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
+            <Navbar.Brand href="/" className="font-weight-bold text-muted">
+              Management Console
+            </Navbar.Brand>
+            <Navbar.Toggle />
+            <Navbar.Collapse className="justify-content-end">
+              <Nav>
+                {this.state.loggedIn !== true &&
+                <Nav.Link href="https://ajamesamplify5e38b46e-5e38b46e-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1noet1mlcvhpi2dhb3i6h6gpum&redirect_uri=http://localhost:3000/">Signup or Login</Nav.Link>
+                }
+                {this.state.loggedIn === true &&
+                  <div>Sign out</div>
+                }
+              </Nav>
+            </Navbar.Collapse>
+        </Navbar>
+          <Switch>
+            {/* Default homepage after login/register redirect */}
+            <Route exact path ="/">
+              {/* Admin is the admin dashboard for now */}
+              <Admin 
+                loggedIn={this.state.loggedIn}
+                admin={this.state.admin}
+                currentUser={this.state.currentUser}
+                userInfo={this.state.userInfo}
+              />
+              {/* Regular is the non-admin dashboard for now */}
+              <Regular
+                loggedIn={this.state.loggedIn}
+                regular={this.state.regular}
+                currentUser={this.state.currentUser}
+                userInfo={this.state.userInfo}
+              />
+            </Route>
+            {/* Catch-all route for error */}
+            <Route>
+            <NotFound />
+            </Route>
+          </Switch>
+            {/* Passes in the state of Cognito user as props */}
+            {/* Likely can re-factor to reduce redundancy */}
+        </div>
+      )
     );
   }
 }
