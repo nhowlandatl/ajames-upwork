@@ -103,7 +103,7 @@ class App extends Component {
             <Navbar.Collapse className="justify-content-end">
               <Nav>
                 {this.state.loggedIn !== true &&
-                <Nav.Link href="https://ajamesamplify5e38b46e-5e38b46e-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1noet1mlcvhpi2dhb3i6h6gpum&redirect_uri=http://localhost:3000/">Signup or Login</Nav.Link>
+                <Nav.Link href="https://ajamesamplify5e38b46e-5e38b46e-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1noet1mlcvhpi2dhb3i6h6gpum&redirect_uri=https://main.dgcxtis8n2kl8.amplifyapp.com/">Signup or Login</Nav.Link>
                 }
                 {this.state.loggedIn === true &&
                   <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
