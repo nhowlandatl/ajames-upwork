@@ -21,7 +21,8 @@
                 "ajamesamplify5e38b46e": {
                     "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"197530488546623\",\"client_secret\":\"8a64a46dac6d0654fd059d62a631e20f\"}]",
                     "facebookAppId": "197530488546623"
-                }
+                },
+                "userPoolGroups": {}
             }
         }
     }

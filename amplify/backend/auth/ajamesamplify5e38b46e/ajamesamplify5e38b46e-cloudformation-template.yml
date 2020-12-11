@@ -127,29 +127,26 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-      
-  hostedUIProviderCreds:
-    Type: String
-                
+        
   thirdPartyAuth:
     Type: String
                     
   authProviders:
     Type: CommaDelimitedList
-      
-  facebookAppId:
-    Type: String
-                
+        
   userPoolGroups:
     Type: String
               
   adminQueries:
     Type: String
-            
-  oAuthMetadata:
+                        
+  hostedUIProviderCreds:
     Type: String
               
-  adminQueryGroup:
+  facebookAppId:
+    Type: String
+              
+  oAuthMetadata:
     Type: String
             
 Conditions:
