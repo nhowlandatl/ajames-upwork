@@ -9,10 +9,12 @@ import { LinkContainer } from "react-router-bootstrap";
 // Components
 import Admin from './Components/Admin.jsx' // Admin user dashboard view
 import Regular from './Components/Regular.jsx' // Regular user dashboard view
-// import Routes from './Routes.jsx' 
+// import Routes from './Routes.jsx' Modify to use a Routes file and add validation to them
 import NotFound from './Components/NotFound.jsx'
-import Settings from './Components/Settings.jsx'
+import Settings from './Components/Settings.jsx' 
 import ChangeEmail from './Components/ChangeEmail.jsx'
+import ChangePassword from './Components/ChangePassword.jsx'
+import ChangeName from './Components/ChangeName.jsx'
 
 // AWS
 import Amplify, { Auth } from 'aws-amplify';
@@ -137,8 +139,27 @@ class App extends Component {
                 userInfo={this.state.userInfo}
               />
             </Route>
+            {/* Main Settings page */}
             <Route exact path="/settings">
+              <Settings 
+                userInfo={this.state.userInfo}
+              />
+            </Route>
+            {/* Change email page */}
+            <Route exact path="/settings/email">
               <ChangeEmail 
+                userInfo={this.state.userInfo}
+              />
+            </Route>
+            {/* Change password page */}
+            <Route exact path="/settings/password">
+              <ChangePassword 
+                userInfo={this.state.userInfo}
+              />
+            </Route>
+            {/* Change first name page */}
+            <Route exact path="/settings/name">
+              <ChangeName 
                 userInfo={this.state.userInfo}
               />
             </Route>

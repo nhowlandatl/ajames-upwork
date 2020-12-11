@@ -4,18 +4,21 @@
 // import PrivacyHOC from '../HOCs/PrivacyHOC.jsx' 
 import React from 'react';
 
+// Bootstrap
+import { Container } from 'react-bootstrap';
+
 class Admin extends React.Component {
     // Retrieve user info
     render () {
         return (
-            <div>
+            <Container>
                 {this.props.admin === true && this.props.userInfo &&
                 <div>
                     <h2>Hello, {this.props.userInfo.attributes.name}</h2> 
                     <h2>You are viewing the administrator board</h2>
                 </div>
                 }
-            </div>
+            </Container>
         )
     }
 };

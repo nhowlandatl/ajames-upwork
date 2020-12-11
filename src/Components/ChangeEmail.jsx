@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+
+// AWS
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
 import {
@@ -8,6 +10,8 @@ import {
   FormLabel,
 } from "react-bootstrap";
 
+
+// Custom styling and error handling
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";

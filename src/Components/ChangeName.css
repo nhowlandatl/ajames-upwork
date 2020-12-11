@@ -1,0 +1,11 @@
+@media all and (min-width: 480px) {
+    .ChangeName {
+      padding: 60px 0;
+    }
+
+    .ChangeName form {
+      margin: 0 auto;
+      max-width: 320px;
+    }
+  }
+  
