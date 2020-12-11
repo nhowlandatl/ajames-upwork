@@ -37,7 +37,7 @@ export default function ChangeName(props) {
       })
     .then((res) => {
         console.log(res)
-        history.push("/settings");
+        history.push("/");
         setIsChanging(false);
         if(res === "SUCCESS") {
             setIsConfirmed("Name successfully changed")
