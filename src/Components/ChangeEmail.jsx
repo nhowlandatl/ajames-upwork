@@ -13,7 +13,7 @@ import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import "./ChangeEmail.css";
 
-export default function ChangeEmail() {
+export default function ChangeEmail(props) {
   const history = useHistory();
   const [codeSent, setCodeSent] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
@@ -22,6 +22,7 @@ export default function ChangeEmail() {
   });
   const [isConfirming, setIsConfirming] = useState(false);
   const [isSendingCode, setIsSendingCode] = useState(false);
+  const [isConfirmed, setIsConfirmed] = useState("Confirmation Code");
 
   function validateEmailForm() {
     return fields.email.length > 0;
@@ -38,7 +39,10 @@ export default function ChangeEmail() {
 
     try {
       const user = await Auth.currentAuthenticatedUser();
-      await Auth.updateUserAttributes(user, { email: fields.email });
+      let result = await Auth.updateUserAttributes(user, { 
+          email: fields.email 
+        });
+        console.log(result)
       setCodeSent(true);
     } catch (error) {
       onError(error);
@@ -50,22 +54,28 @@ export default function ChangeEmail() {
     event.preventDefault();
 
     setIsConfirming(true);
-
-    try {
-      await Auth.verifyCurrentUserAttributeSubmit("email", fields.code);
-
-      history.push("/settings");
-    } catch (error) {
-      onError(error);
-      setIsConfirming(false);
+        await Auth.verifyCurrentUserAttributeSubmit("email", fields.code)
+        .then((res) => {
+            console.log(res)
+            history.push("/settings")
+            setIsConfirming(false);
+            if(res === "SUCCESS") {
+                setIsConfirmed("New Email Address Confirmed")
+            }
+        })
+        .catch(error => {
+            onError(error);
+            setIsConfirming(false);
+        }) 
     }
-  }
-
-  function renderUpdateForm() {
+  
+  function renderUpdateForm() { 
     return (
       <form onSubmit={handleUpdateClick}>
         <FormGroup bsSize="large" controlId="email">
-          <FormLabel >Email</FormLabel>
+            {props.userInfo &&
+          <FormLabel >Your current email is {props.userInfo.attributes.email}</FormLabel>
+            }
           <FormControl
             autoFocus
             type="email"
@@ -90,7 +100,7 @@ export default function ChangeEmail() {
     return (
       <form onSubmit={handleConfirmClick}>
         <FormGroup bsSize="large" controlId="code">
-          <FormLabel >Confirmation Code</FormLabel>
+          <FormLabel >{isConfirmed}</FormLabel>
           <FormControl
             autoFocus
             type="tel"

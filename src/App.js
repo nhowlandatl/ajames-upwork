@@ -100,7 +100,6 @@ class App extends Component {
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
               <Nav>
-               
                 {this.state.loggedIn !== true &&
                 <Nav.Link href="https://ajamesamplify5e38b46e-5e38b46e-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=1noet1mlcvhpi2dhb3i6h6gpum&redirect_uri=http://localhost:3000/">Signup or Login</Nav.Link>
                 }
@@ -112,7 +111,6 @@ class App extends Component {
                 <Nav.Link>Settings</Nav.Link>
                 </LinkContainer>
                 }
-               
               </Nav>
             </Navbar.Collapse>
         </Navbar>
@@ -140,12 +138,10 @@ class App extends Component {
               />
             </Route>
             <Route exact path="/settings">
-              <ChangeEmail /> 
+              <ChangeEmail 
+                userInfo={this.state.userInfo}
+              />
             </Route>
-            {/* <Route exact path="/settings">
-              <Settings />
-            </Route> */}
-
             {/* Catch-all route for error */}
             <Route>
              <NotFound />
