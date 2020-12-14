@@ -1,18 +1,23 @@
+// React core
 import React, { useState } from "react";
 import { Auth } from "aws-amplify";
 import { useHistory } from "react-router-dom";
+
+// Bootstrap
 import {
     FormGroup,
     FormControl,
     FormLabel
   } from "react-bootstrap";
 
+// Components
 import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import "./ChangePassword.css";
+import PrivacyHoc from '../HOCs/PrivacyHOC'
 
-export default function ChangePassword(props) {
+function ChangePassword(props) {
   const history = useHistory();
   const [fields, handleFieldChange] = useFormFields({
     password: "",
@@ -20,7 +25,8 @@ export default function ChangePassword(props) {
     confirmPassword: "",
   });
   const [isChanging, setIsChanging] = useState(false);
-  const [isConfirmed, setIsConfirmed] = useState("Change password");
+  const [isConfirmed, setIsConfirmed] = useState(false);
+
 
   function validateForm() {
     return (
@@ -34,6 +40,7 @@ export default function ChangePassword(props) {
     event.preventDefault();
 
     setIsChanging(true);
+    setIsConfirmed(false);
 
       const currentUser = await Auth.currentAuthenticatedUser();
       await Auth.changePassword(
@@ -43,10 +50,11 @@ export default function ChangePassword(props) {
       )
     .then((res) => {
         console.log(res)
-        history.push("/settings");
-        setIsChanging(false);
         if(res === "SUCCESS") {
-            setIsConfirmed("Password successfully changed")
+          setIsConfirmed(true)
+          window.setTimeout(() => {
+            history.push('/settings')
+          }, 2000) // Return to settings page after 2 seconds. Alternatively, have prompt to change again.
         }
     })
     .catch(error => {
@@ -59,6 +67,9 @@ export default function ChangePassword(props) {
   return (
     <div className="ChangePassword">
       <form onSubmit={handleChangeClick}>
+        {/* Conditionally render password change form if not has not been changed. If password is successfully changed, render success notice and redirect */}
+        {isConfirmed === false ?
+        <div>
         <FormGroup bsSize="large" controlId="oldPassword">
           <FormLabel>Old Password</FormLabel>
           <FormControl
@@ -93,7 +104,15 @@ export default function ChangePassword(props) {
         >
           Change Password
         </LoaderButton>
+        </div>
+        : // Conditional render if password change success
+        <div>
+          <h3>Password successfully changed</h3>
+        </div>
+        }
       </form>
     </div>
   );
 }
+
+export default PrivacyHoc(ChangePassword)

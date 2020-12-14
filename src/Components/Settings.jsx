@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap"; 
+import PrivacyHoc from '../HOCs/PrivacyHOC'
 
 // CSS
 import './Settings.css'
@@ -47,4 +48,4 @@ export class Settings extends Component {
     }
 }
 
-export default withRouter(Settings)
+export default withRouter(PrivacyHoc(Settings))

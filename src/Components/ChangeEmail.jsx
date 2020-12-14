@@ -16,8 +16,9 @@ import LoaderButton from "./LoaderButton";
 import { useFormFields } from "../libs/hooksLib";
 import { onError } from "../libs/errorLib";
 import "./ChangeEmail.css";
+import PrivacyHOC from "../HOCs/PrivacyHOC";
 
-export default function ChangeEmail(props) {
+function ChangeEmail(props) {
   const history = useHistory();
   const [codeSent, setCodeSent] = useState(false);
   const [fields, handleFieldChange] = useFormFields({
@@ -26,7 +27,7 @@ export default function ChangeEmail(props) {
   });
   const [isConfirming, setIsConfirming] = useState(false);
   const [isSendingCode, setIsSendingCode] = useState(false);
-  const [isConfirmed, setIsConfirmed] = useState("Confirmation Code");
+  const [isConfirmed, setIsConfirmed] = useState(false);
 
   function validateEmailForm() {
     return fields.email.length > 0;
@@ -61,10 +62,12 @@ export default function ChangeEmail(props) {
         await Auth.verifyCurrentUserAttributeSubmit("email", fields.code)
         .then((res) => {
             console.log(res)
-            history.push("/settings")
             setIsConfirming(false);
             if(res === "SUCCESS") {
-                setIsConfirmed("New Email Address Confirmed")
+                setIsConfirmed(true)
+                window.setTimeout(() => {
+                  history.push('/settings')
+                }, 3000) // Return to settings page after 2 seconds. Alternatively, have prompt to change again.
             }
         })
         .catch(error => {
@@ -78,7 +81,7 @@ export default function ChangeEmail(props) {
       <form onSubmit={handleUpdateClick}>
         <FormGroup bsSize="large" controlId="email">
             {props.userInfo &&
-          <FormLabel >Your current email is {props.userInfo.attributes.email}</FormLabel>
+          <FormLabel >Change your email address below</FormLabel>
             }
           <FormControl
             autoFocus
@@ -103,34 +106,44 @@ export default function ChangeEmail(props) {
   function renderConfirmationForm() {
     return (
       <form onSubmit={handleConfirmClick}>
-        <FormGroup bsSize="large" controlId="code">
-          <FormLabel >{isConfirmed}</FormLabel>
-          <FormControl
-            autoFocus
-            type="tel"
-            value={fields.code}
-            onChange={handleFieldChange}
-          />
-          <FormText>
-            Please check your email ({fields.email}) for the confirmation code.
-          </FormText>
-        </FormGroup>
-        <LoaderButton
-          block
-          type="submit"
-          bsSize="large"
-          isLoading={isConfirming}
-          disabled={!validateConfirmForm()}
-        >
-          Confirm
-        </LoaderButton>
+        {/* Conditionally render email change form if email has not been changed on page visit. If name is successfully changed, render success notice and redirect */}
+        {isConfirmed === false ?
+        <div>
+          <FormGroup bsSize="large" controlId="code">
+            <FormLabel >{isConfirmed}</FormLabel>
+            <FormControl
+              autoFocus
+              type="tel"
+              value={fields.code}
+              onChange={handleFieldChange}
+            />
+            <FormText>
+              Please check your email ({fields.email}) for the confirmation code.
+            </FormText>
+          </FormGroup>
+          <LoaderButton
+            block
+            type="submit"
+            bsSize="large"
+            isLoading={isConfirming}
+            disabled={!validateConfirmForm()}
+          >
+            Confirm
+          </LoaderButton>
+          </div>
+          : // Conditional render if email changed success
+          <div>
+            <h3>Email changed</h3>
+          </div>
+        }
       </form>
     );
   }
-
   return (
     <div className="ChangeEmail">
       {!codeSent ? renderUpdateForm() : renderConfirmationForm()}
     </div>
   );
 }
+
+export default PrivacyHOC(ChangeEmail)

@@ -4,9 +4,5 @@
       margin: 0 auto;
       max-width: 480px;
     }
-  
-    .Settings > .LoaderButton:first-child {
-      margin-bottom: 15px;
-    }
   }
   
