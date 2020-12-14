@@ -172,7 +172,6 @@ class App extends Component {
             </Route>
           </Switch>
             {/* Passes in the state of Cognito user as props */}
-            {/* Likely can re-factor to reduce redundancy */}
         </div>
       )
     );

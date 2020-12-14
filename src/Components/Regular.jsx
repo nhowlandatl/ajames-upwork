@@ -8,16 +8,6 @@ import { Auth } from 'aws-amplify';
 import { Container } from 'react-bootstrap';
 
 class Regular extends React.Component {
-
-    changePassword = () => {
-        Auth.currentAuthenticatedUser()
-            .then(user => {
-                return Auth.changePassword(user, 'oldPassword', 'newPassword');
-            })
-            .then(data => console.log(data))
-            .catch(err => console.log(err));
-    }
-    
     // Retrieve user info
     render () {
         return (

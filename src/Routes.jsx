@@ -4,6 +4,8 @@ import Admin from './Components/Admin';
 import Regular from './Components/Regular'
 import NotFound from './Components/NotFound'
 
+// Not currently using a routes file.
+
 export class Routes extends Component {
     render() {
         return (
