@@ -18,7 +18,7 @@ export default function ChangeName(props) {
     name: ""
   });
   const [isChanging, setIsChanging] = useState(false);
-  const [isConfirmed, setIsConfirmed] = useState("Change name");
+  const [nameChanged, setNameChange] = useState(false);
 
   function validateForm() {
     return (
@@ -36,11 +36,14 @@ export default function ChangeName(props) {
           'name': fields.name
       })
     .then((res) => {
+      console.log(nameChanged)
         console.log(res)
-        history.push("/");
+        history.push("/settings");
         setIsChanging(false);
+
         if(res === "SUCCESS") {
-            setIsConfirmed("Name successfully changed")
+          setNameChange(true)
+          console.log(nameChanged)
         }
     })
     .catch(error => {
@@ -53,26 +56,31 @@ export default function ChangeName(props) {
   return (
     <div className="ChangeName">
       <form onSubmit={handleChangeClick}>
-        <FormGroup bsSize="large" controlId="name">
-        {props.userInfo &&
-          <FormLabel >Hi, {props.userInfo.attributes.name}. You can change your name below.</FormLabel>
-            }
-          <FormControl
-            type="name"
-            onChange={handleFieldChange}
-            value={fields.name}
-          />
-        </FormGroup>
-        <hr />
-        <LoaderButton
-          block
-          type="submit"
-          bsSize="large"
-          disabled={!validateForm()}
-          isLoading={isChanging}
-        >
-          Change name
-        </LoaderButton>
+        {this.props.userInfo && nameChanged === true &&
+          <div>
+          <FormGroup bsSize="large" controlId="name">
+          
+            <FormLabel >Hi, {props.userInfo.attributes.name}. You can change your name below.</FormLabel>
+          
+            <FormControl
+              type="name"
+              onChange={handleFieldChange}
+              value={fields.name}
+            />
+          </FormGroup>
+          
+          <hr />
+          <LoaderButton
+            block
+            type="submit"
+            bsSize="large"
+            disabled={!validateForm()}
+            isLoading={isChanging}
+          >
+            Change name
+          </LoaderButton>
+          </div>
+        }
       </form>
     </div>
   );
