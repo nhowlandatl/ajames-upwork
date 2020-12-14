@@ -30,7 +30,6 @@ class App extends Component {
       admin: false,
       regular: false,
       userInfo: null,
-      // Add spinner icon to page when isAuthenticating is true
       isLoading: false
     };
   }
@@ -43,7 +42,7 @@ class App extends Component {
   }
 
   async onLoad() {
-    // Auth.currentSession will retreive JWT and which Cognito group the user belongs to immediately when page loads
+    // Auth.currentSession will retreive JWT and which Cognito group the user belongs to immediately when page loads. If user is not logged in, nothing will render and alert will ask user to log in or sign up.
       await Auth.currentSession()
       .then(user => {
         this.setState({
