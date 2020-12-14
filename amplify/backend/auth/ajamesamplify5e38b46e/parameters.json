@@ -89,5 +89,5 @@
     ],
     "userPoolGroups": true,
     "adminQueries": true,
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://main.dgcxtis8n2kl8.amplifyapp.com/\",\"http://localhost:3000/\"],\"LogoutURLs\":[\"https://main.dgcxtis8n2kl8.amplifyapp.com/\",\"http://localhost:3000/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/\",\"http://localhost:3000/\"],\"LogoutURLs\":[\"http://localhost:3000/\",\"http://localhost:3000/\"]}"
 }
