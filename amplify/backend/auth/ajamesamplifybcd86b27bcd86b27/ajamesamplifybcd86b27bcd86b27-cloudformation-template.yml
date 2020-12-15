@@ -100,10 +100,7 @@ Parameters:
                     
   authProviders:
     Type: CommaDelimitedList
-      
-  facebookAppId:
-    Type: String
-                      
+              
   usernameAttributes:
     Type: CommaDelimitedList
         
@@ -127,19 +124,10 @@ Parameters:
       
   hostedUIProviderMeta:
     Type: String
-              
-  hostedUIProviderCreds:
-    Type: String
-              
-  oAuthMetadata:
-    Type: String
                       
   userPoolGroupList:
     Type: CommaDelimitedList
-      
-  adminQueryGroup:
-    Type: String
-                                            
+                                                
   parentStack:
     Type: String
                 
@@ -148,7 +136,16 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-    
+      
+  facebookAppId:
+    Type: String
+              
+  hostedUIProviderCreds:
+    Type: String
+              
+  oAuthMetadata:
+    Type: String
+            
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 

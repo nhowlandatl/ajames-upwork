@@ -55,12 +55,10 @@
         "Facebook"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"family_name\":\"last_name\",\"name\":\"name\",\"username\":\"id\"}}]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://new-pool.dgcxtis8n2kl8.amplifyapp.com/\"],\"LogoutURLs\":[\"https://new-pool.dgcxtis8n2kl8.amplifyapp.com/\"]}",
     "userPoolGroupList": [
         "Admin",
         "Regular"
     ],
-    "adminQueryGroup": "Admin",
     "authRoleArn": {
         "Fn::GetAtt": [
             "AuthRole",
@@ -89,5 +87,6 @@
                 "Name"
             ]
         }
-    ]
+    ],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://main.dgcxtis8n2kl8.amplifyapp.com/\"],\"LogoutURLs\":[\"https://main.dgcxtis8n2kl8.amplifyapp.com/\"]}"
 }
