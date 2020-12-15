@@ -10,6 +10,19 @@
             "StackName": "amplify-ajamesamplify-dev-141142",
             "StackId": "arn:aws:cloudformation:us-east-1:886693467918:stack/amplify-ajamesamplify-dev-141142/380d62f0-34d2-11eb-9f39-12ad918e4e81",
             "AmplifyAppId": "dgcxtis8n2kl8"
+        },
+        "categories": {
+            "function": {
+                "ajamesamplify6627f3d46627f3d4PostConfirmation": {
+                    "GROUP": "Regular"
+                }
+            },
+            "auth": {
+                "ajamesamplify6627f3d46627f3d4": {
+                    "facebookAppId": "197530488546623",
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"197530488546623\",\"client_secret\":\"8a64a46dac6d0654fd059d62a631e20f\"}]"
+                }
+            }
         }
     }
 }
