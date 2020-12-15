@@ -15,6 +15,9 @@
             "function": {
                 "ajamesamplify5e38b46ePostConfirmation": {
                     "GROUP": "Regular"
+                },
+                "ajamesamplifybcd86b27bcd86b27PostConfirmation": {
+                    "GROUP": "Regular"
                 }
             },
             "auth": {
@@ -22,7 +25,11 @@
                     "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"197530488546623\",\"client_secret\":\"8a64a46dac6d0654fd059d62a631e20f\"}]",
                     "facebookAppId": "197530488546623"
                 },
-                "userPoolGroups": {}
+                "userPoolGroups": {},
+                "ajamesamplifybcd86b27bcd86b27": {
+                    "facebookAppId": "197530488546623",
+                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"197530488546623\",\"client_secret\":\"8a64a46dac6d0654fd059d62a631e20f\"}]"
+                }
             }
         }
     }
