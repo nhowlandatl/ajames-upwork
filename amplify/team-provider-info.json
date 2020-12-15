@@ -12,17 +12,6 @@
             "AmplifyAppId": "dgcxtis8n2kl8"
         },
         "categories": {
-            "function": {
-                "ajamesamplify5e38b46ePostConfirmation": {
-                    "GROUP": "Regular"
-                },
-                "ajamesamplifyb49a7e61b49a7e61PostConfirmation": {
-                    "GROUP": "Admin"
-                },
-                "ajamesamplifycaf4cbbdcaf4cbbdPostConfirmation": {
-                    "GROUP": "Regular"
-                }
-            },
             "auth": {
                 "ajamesamplifycaf4cbbdcaf4cbbd": {
                     "facebookAppId": "197530488546623",

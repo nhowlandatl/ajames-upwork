@@ -35,7 +35,7 @@
         "name"
     ],
     "userpoolClientLambdaRole": "ajamescaf4cbbd_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": true,
+    "userpoolClientSetAttributes": false,
     "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "ajamesamplifycaf4cbbdcaf4cbbd",
@@ -44,8 +44,8 @@
         "graph.facebook.com"
     ],
     "userPoolGroups": true,
-    "adminQueries": true,
-    "triggers": "{\"PostConfirmation\":[\"add-to-group\"]}",
+    "adminQueries": false,
+    "triggers": "{}",
     "hostedUI": true,
     "hostedUIDomainName": "ajamesamplifycaf4cbbd-caf4cbbd",
     "authProvidersUserPool": [
@@ -71,19 +71,7 @@
     "parentStack": {
         "Ref": "AWS::StackId"
     },
-    "permissions": [
-        "{\"policyName\":\"AddToGroupCognito\",\"trigger\":\"PostConfirmation\",\"effect\":\"Allow\",\"actions\":[\"cognito-idp:AdminAddUserToGroup\",\"cognito-idp:GetGroup\",\"cognito-idp:CreateGroup\"],\"resource\":{\"paramType\":\"!GetAtt\",\"keys\":[\"UserPool\",\"Arn\"]}}"
-    ],
-    "dependsOn": [
-        {
-            "category": "function",
-            "resourceName": "ajamesamplifycaf4cbbdcaf4cbbdPostConfirmation",
-            "triggerProvider": "Cognito",
-            "attributes": [
-                "Arn",
-                "Name"
-            ]
-        }
-    ],
+    "permissions": [],
+    "dependsOn": [],
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://new-pool.dgcxtis8n2kl8.amplifyapp.com/\"],\"LogoutURLs\":[\"https://new-pool.dgcxtis8n2kl8.amplifyapp.com/\"]}"
 }

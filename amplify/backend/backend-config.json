@@ -19,35 +19,10 @@
         "ajamesamplifycaf4cbbdcaf4cbbd": {
             "service": "Cognito",
             "providerPlugin": "awscloudformation",
-            "dependsOn": [
-                {
-                    "category": "function",
-                    "resourceName": "ajamesamplifycaf4cbbdcaf4cbbdPostConfirmation",
-                    "triggerProvider": "Cognito",
-                    "attributes": [
-                        "Arn",
-                        "Name"
-                    ]
-                }
-            ]
+            "dependsOn": []
         }
     },
     "function": {
-        "ajamesamplify5e38b46ePostConfirmation": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda"
-        },
-        "ajamesamplifyb49a7e61b49a7e61PostConfirmation": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda"
-        },
-        "ajamesamplifycaf4cbbdcaf4cbbdPostConfirmation": {
-            "build": true,
-            "providerPlugin": "awscloudformation",
-            "service": "Lambda"
-        },
         "AdminQueries4d26e8a5": {
             "service": "Lambda",
             "providerPlugin": "awscloudformation",
