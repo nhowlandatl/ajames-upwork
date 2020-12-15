@@ -96,7 +96,7 @@ class App extends Component {
           {/* Navbar component */}
           <Navbar collapseOnSelect bg="light" expand="md" className="mb-3">
             <Navbar.Brand href="/" className="font-weight-bold text-muted">
-              Management Console
+              User Management Console
             </Navbar.Brand>
             <Navbar.Toggle />
             <Navbar.Collapse className="justify-content-end">
