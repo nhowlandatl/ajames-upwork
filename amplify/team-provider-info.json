@@ -10,29 +10,6 @@
             "StackName": "amplify-ajamesamplify-dev-141142",
             "StackId": "arn:aws:cloudformation:us-east-1:886693467918:stack/amplify-ajamesamplify-dev-141142/380d62f0-34d2-11eb-9f39-12ad918e4e81",
             "AmplifyAppId": "dgcxtis8n2kl8"
-        },
-        "categories": {
-            "function": {
-                "ajamesamplify5e38b46ePostConfirmation": {
-                    "GROUP": "Regular"
-                },
-                "ajamesamplifybcd86b27bcd86b27PostConfirmation": {
-                    "GROUP": "Regular"
-                },
-                "AdminQueriescb14aaac": {},
-                "AdminQueries63b1133f": {}
-            },
-            "auth": {
-                "ajamesamplify5e38b46e": {
-                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"197530488546623\",\"client_secret\":\"8a64a46dac6d0654fd059d62a631e20f\"}]",
-                    "facebookAppId": "197530488546623"
-                },
-                "userPoolGroups": {},
-                "ajamesamplifybcd86b27bcd86b27": {
-                    "facebookAppId": "197530488546623",
-                    "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"197530488546623\",\"client_secret\":\"8a64a46dac6d0654fd059d62a631e20f\"}]"
-                }
-            }
         }
     }
 }
