@@ -12,8 +12,13 @@
             "AmplifyAppId": "dgcxtis8n2kl8"
         },
         "categories": {
+            "function": {
+                "ajamesamplifyd3c24a9cd3c24a9cPostConfirmation": {
+                    "GROUP": "Regular"
+                }
+            },
             "auth": {
-                "ajamesamplifycaf4cbbdcaf4cbbd": {
+                "ajamesamplifyd3c24a9cd3c24a9c": {
                     "facebookAppId": "197530488546623",
                     "hostedUIProviderCreds": "[{\"ProviderName\":\"Facebook\",\"client_id\":\"197530488546623\",\"client_secret\":\"8a64a46dac6d0654fd059d62a631e20f\"}]"
                 }
