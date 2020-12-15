@@ -11,13 +11,13 @@ Parameters:
   
   
   
-  functionajamesamplify5e38b46ePostConfirmationArn: 
+  functionajamesamplifycaf4cbbdcaf4cbbdPostConfirmationArn: 
     Type: String
-    Default: functionajamesamplify5e38b46ePostConfirmationArn
+    Default: functionajamesamplifycaf4cbbdcaf4cbbdPostConfirmationArn
   
-  functionajamesamplify5e38b46ePostConfirmationName: 
+  functionajamesamplifycaf4cbbdcaf4cbbdPostConfirmationName: 
     Type: String
-    Default: functionajamesamplify5e38b46ePostConfirmationName
+    Default: functionajamesamplifycaf4cbbdcaf4cbbdPostConfirmationName
   
   
   
@@ -86,27 +86,36 @@ Parameters:
   userpoolClientSetAttributes:
     Type: String
             
-  sharedId:
-    Type: String
-              
-  resourceName:
+  useDefault:
     Type: String
               
   authSelections:
     Type: String
-                                      
-  useDefault:
+              
+  resourceName:
+    Type: String
+                
+  thirdPartyAuth:
+    Type: String
+                    
+  authProviders:
+    Type: CommaDelimitedList
+      
+  facebookAppId:
+    Type: String
+                
+  userPoolGroups:
+    Type: String
+              
+  adminQueries:
+    Type: String
+            
+  triggers:
     Type: String
                 
   hostedUI:
     Type: String
-                    
-  usernameAttributes:
-    Type: CommaDelimitedList
-      
-  triggers:
-    Type: String
-              
+            
   hostedUIDomainName:
     Type: String
                       
@@ -115,10 +124,19 @@ Parameters:
       
   hostedUIProviderMeta:
     Type: String
+              
+  hostedUIProviderCreds:
+    Type: String
+              
+  oAuthMetadata:
+    Type: String
                       
   userPoolGroupList:
     Type: CommaDelimitedList
-            
+      
+  adminQueryGroup:
+    Type: String
+                                            
   parentStack:
     Type: String
                 
@@ -127,28 +145,7 @@ Parameters:
               
   dependsOn:
     Type: CommaDelimitedList
-        
-  thirdPartyAuth:
-    Type: String
-                    
-  authProviders:
-    Type: CommaDelimitedList
-        
-  userPoolGroups:
-    Type: String
-              
-  adminQueries:
-    Type: String
-            
-  hostedUIProviderCreds:
-    Type: String
-              
-  facebookAppId:
-    Type: String
-              
-  oAuthMetadata:
-    Type: String
-                        
+    
 Conditions:
   ShouldNotCreateEnvResources: !Equals [ !Ref env, NONE ]
 
@@ -160,7 +157,7 @@ Resources:
   # Created to allow the UserPool SMS Config to publish via the Simple Notification Service during MFA Process
     Type: AWS::IAM::Role
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, 'ajames5e38b46e_sns-role', !Join ['',[ 'sns', '5e38b46e', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, 'ajamescaf4cbbd_sns-role', !Join ['',[ 'sns', 'undefined', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument: 
         Version: "2012-10-17"
         Statement: 
@@ -172,10 +169,10 @@ Resources:
               - "sts:AssumeRole"
             Condition: 
               StringEquals:
-                sts:ExternalId: ajames5e38b46e_role_external_id
+                sts:ExternalId: ajamescaf4cbbd_role_external_id
       Policies: 
         - 
-          PolicyName: ajames5e38b46e-sns-policy
+          PolicyName: ajamescaf4cbbd-sns-policy
           PolicyDocument: 
             Version: "2012-10-17"
             Statement: 
@@ -218,7 +215,7 @@ Resources:
         
         
         
-          PostConfirmation: !Ref functionajamesamplify5e38b46ePostConfirmationArn
+          PostConfirmation: !Ref functionajamesamplifycaf4cbbdcaf4cbbdPostConfirmationArn
         
         
         
@@ -239,14 +236,12 @@ Resources:
           RequireNumbers: false
           RequireSymbols: false
           RequireUppercase: false
-      
-      UsernameAttributes: !Ref usernameAttributes
           
       MfaConfiguration: !Ref mfaConfiguration
       SmsVerificationMessage: !Ref smsVerificationMessage
       SmsConfiguration: 
         SnsCallerArn: !GetAtt SNSRole.Arn
-        ExternalId: ajames5e38b46e_role_external_id
+        ExternalId: ajamescaf4cbbd_role_external_id
     
   
     
@@ -260,7 +255,7 @@ Resources:
     Properties: 
       Action: "lambda:invokeFunction"
       Principal: "cognito-idp.amazonaws.com"
-      FunctionName: !Ref functionajamesamplify5e38b46ePostConfirmationName
+      FunctionName: !Ref functionajamesamplifycaf4cbbdcaf4cbbdPostConfirmationName
       SourceArn: !GetAtt UserPool.Arn
     
   
@@ -270,10 +265,10 @@ Resources:
   # Updating lambda role with permissions to Cognito
   
   
-  ajamesamplify5e38b46ePostConfirmationAddToGroupCognito:
+  ajamesamplifycaf4cbbdcaf4cbbdPostConfirmationAddToGroupCognito:
     Type: AWS::IAM::Policy
     Properties:
-      PolicyName: ajamesamplify5e38b46ePostConfirmationAddToGroupCognito
+      PolicyName: ajamesamplifycaf4cbbdcaf4cbbdPostConfirmationAddToGroupCognito
       PolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -298,7 +293,7 @@ Resources:
             
 
       Roles:
-        - !Join ['',["ajamesamplify5e38b46ePostConfirmation", '-', !Ref env]]
+        - !Join ['',["ajamesamplifycaf4cbbdcaf4cbbdPostConfirmation", '-', !Ref env]]
   
   
   
@@ -307,7 +302,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: ajames5e38b46e_app_clientWeb
+      ClientName: ajamescaf4cbbd_app_clientWeb
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
@@ -320,7 +315,7 @@ Resources:
   # Depends on UserPool for ID reference
     Type: "AWS::Cognito::UserPoolClient"
     Properties:
-      ClientName: ajames5e38b46e_app_client
+      ClientName: ajamescaf4cbbd_app_client
       
       ReadAttributes: !Ref userpoolClientReadAttributes
       WriteAttributes: !Ref userpoolClientWriteAttributes
@@ -334,7 +329,7 @@ Resources:
   # Created to execute Lambda which gets userpool app client config values
     Type: 'AWS::IAM::Role'
     Properties:
-      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', '5e38b46e', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
+      RoleName: !If [ShouldNotCreateEnvResources, !Ref userpoolClientLambdaRole, !Join ['',['upClientLambdaRole', 'undefined', !Select [3, !Split ['-', !Ref 'AWS::StackName']], '-', !Ref env]]]
       AssumeRolePolicyDocument:
         Version: '2012-10-17'
         Statement:
@@ -388,7 +383,7 @@ Resources:
   # Marked as depending on UserPoolClientRole for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: ajames5e38b46e_userpoolclient_lambda_iam_policy
+      PolicyName: ajamescaf4cbbd_userpoolclient_lambda_iam_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -405,7 +400,7 @@ Resources:
   # Marked as depending on UserPoolClientLambdaPolicy for easier to understand CFN sequencing
     Type: 'AWS::IAM::Policy'
     Properties:
-      PolicyName: ajames5e38b46e_userpoolclient_lambda_log_policy
+      PolicyName: ajamescaf4cbbd_userpoolclient_lambda_log_policy
       Roles: 
         - !Ref UserPoolClientRole
       PolicyDocument:
@@ -792,7 +787,7 @@ Resources:
   # Always created
     Type: AWS::Cognito::IdentityPool
     Properties: 
-      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'ajamesamplify5e38b46e_identitypool_5e38b46e', !Join ['',['ajamesamplify5e38b46e_identitypool_5e38b46e', '__', !Ref env]]]
+      IdentityPoolName: !If [ShouldNotCreateEnvResources, 'ajamesamplifycaf4cbbd_identitypool_caf4cbbd', !Join ['',['ajamesamplifycaf4cbbd_identitypool_caf4cbbd', '__', !Ref env]]]
       
       CognitoIdentityProviders:
         - ClientId:  !Ref UserPoolClient
