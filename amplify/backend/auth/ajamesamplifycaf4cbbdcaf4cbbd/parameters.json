@@ -35,7 +35,7 @@
         "name"
     ],
     "userpoolClientLambdaRole": "ajamescaf4cbbd_userpoolclient_lambda_role",
-    "userpoolClientSetAttributes": false,
+    "userpoolClientSetAttributes": true,
     "useDefault": "manual",
     "authSelections": "identityPoolAndUserPool",
     "resourceName": "ajamesamplifycaf4cbbdcaf4cbbd",
@@ -44,7 +44,7 @@
         "graph.facebook.com"
     ],
     "userPoolGroups": true,
-    "adminQueries": false,
+    "adminQueries": true,
     "triggers": "{}",
     "hostedUI": true,
     "hostedUIDomainName": "ajamesamplifycaf4cbbd-caf4cbbd",
@@ -73,5 +73,6 @@
     },
     "permissions": [],
     "dependsOn": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://new-pool.dgcxtis8n2kl8.amplifyapp.com/\"],\"LogoutURLs\":[\"https://new-pool.dgcxtis8n2kl8.amplifyapp.com/\"]}"
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://new-pool.dgcxtis8n2kl8.amplifyapp.com/\"],\"LogoutURLs\":[\"https://new-pool.dgcxtis8n2kl8.amplifyapp.com/\"]}",
+    "adminQueryGroup": "Admin"
 }
