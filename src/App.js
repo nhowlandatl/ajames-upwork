@@ -15,6 +15,8 @@ import Settings from './Components/Settings.jsx'
 import ChangeEmail from './Components/ChangeEmail.jsx'
 import ChangePassword from './Components/ChangePassword.jsx'
 import ChangeName from './Components/ChangeName.jsx'
+import Signup from './Components/Signup.jsx'
+import Login from './Components/Login.jsx'
 
 // AWS
 import Amplify, { Auth } from 'aws-amplify';
@@ -80,6 +82,7 @@ class App extends Component {
       })
       .catch(e => 
         alert(e + ": You need to log in first")
+        // Redirect to login programatically
       )
   }
 
@@ -102,7 +105,7 @@ class App extends Component {
             <Navbar.Collapse className="justify-content-end">
               <Nav>
                 {this.state.loggedIn !== true &&
-                <Nav.Link href="https://ajamesamplify6627f3d4-6627f3d4-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=78vpjea306q8ooa5qd74kbint4&redirect_uri=https://main.dgcxtis8n2kl8.amplifyapp.com/">Signup or Login</Nav.Link>
+                <Nav.Link href="/login">Signup or Login</Nav.Link>
                 }
                 {this.state.loggedIn === true &&
                   <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
@@ -164,6 +167,14 @@ class App extends Component {
               <ChangeName 
                 userInfo={this.state.userInfo}
                 loggedIn={this.state.loggedIn}
+              />
+            </Route>
+            <Route exact path="/signup">
+              <Signup 
+              />
+            </Route>
+            <Route exact path="/login">
+              <Login 
               />
             </Route>
             {/* Catch-all route for error */}
