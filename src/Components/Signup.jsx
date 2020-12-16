@@ -5,7 +5,6 @@ import { Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
 
 // Components
-// import { useAppContext } from "..libs/contextLib"; 
 import { useFormFields } from "../libs/hooksLib";
 import LoaderButton from './LoaderButton'
 import "./Signup.css";
@@ -28,7 +27,6 @@ function Signup() {
 
   const history = useHistory();
   const [newUser, setNewUser] = useState(null);
-//   const { userHasAuthenticated } = useAppContext();  
   const [isLoading, setIsLoading] = useState(false);
 
   function validateForm() {
