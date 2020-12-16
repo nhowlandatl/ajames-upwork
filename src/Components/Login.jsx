@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 // Components
 import FacebookLogin from 'react-facebook-login';
@@ -12,6 +12,7 @@ import { Auth } from "aws-amplify";
 
 
 export default function Login() {
+  const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,7 +25,7 @@ export default function Login() {
   
     try {
       await Auth.signIn(email, password);
-      alert("Logged in");
+      history.push('/')
     } catch (e) {
       alert(e.message);
     }

@@ -1,5 +1,5 @@
 // React core
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 
 // Bootstrap
@@ -33,23 +33,6 @@ function ChangeName(props) {
       fields.name.length > 0
     );
   }
-
-
-  // Get current user info from AWS
-  // useEffect(() => {
-  //   Auth.currentUserInfo()
-  //     .then(user => {
-  //         console.log(user)
-  //         setCurrentUser(
-  //           user.attributes.name
-  //         )
-  //         console.log(currentUser)
-  //     })
-  //     .catch(e => 
-  //       alert(e + ": You need to log in first")
-  //     )
-  //   }, []
-  // ); 
   
   async function handleChangeClick(event) {
     event.preventDefault();
