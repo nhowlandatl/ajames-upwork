@@ -58,6 +58,9 @@ class App extends Component {
   }
 
   async onLoad() {
+    Auth.currentAuthenticatedUser(user => {
+      console.log(user)
+    })
     // Auth.currentSession will retreive JWT and which Cognito group the user belongs to immediately when page loads. If user is not logged in, nothing will render and alert will ask user to log in or sign up.
       await Auth.currentSession()
       .then(user => {
