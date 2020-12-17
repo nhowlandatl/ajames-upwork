@@ -58,6 +58,20 @@ class App extends Component {
   }
 
   async onLoad() {
+    await Auth.currentUserInfo()
+    .then(user => {
+      console.log(user)
+    })
+    .catch(e => 
+      console.log("you need to log in first")
+    )
+    await Auth.currentUserPoolUser()
+    .then(user => {
+      console.log(user)
+    })
+    .catch(e => 
+      console.log("you need to log in first")
+    )
     await Auth.currentAuthenticatedUser()
     .then(user => {
       console.log(user)
