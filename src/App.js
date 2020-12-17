@@ -128,9 +128,9 @@ class App extends Component {
                 {this.state.loggedIn !== true &&
                 <Nav.Link href="/login">Signup or Login</Nav.Link>
                 }
-                {this.state.loggedIn === true &&
+                
                   <Nav.Link onClick={this.handleLogout.bind(this)}>Logout</Nav.Link>
-                }
+                
                 {this.state.loggedIn === true &&
                <LinkContainer to="/settings">
                 <Nav.Link>Settings</Nav.Link>
