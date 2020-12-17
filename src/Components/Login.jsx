@@ -1,6 +1,10 @@
 // **NOTE**
 // Logging into facebook works and it receives token credentials, but it won't provide permissions to access the Cognito user pool group. It seems you must use the hosted Cognito UI for Federated logins to read the Cognito user pool info. This is a documented issue with no AWS resolution. See https://github.com/aws-amplify/amplify-js/issues/399
 
+
+// Recommended work-around for Facebook federation would be to stick to Cognito hosted UI for login: https://ajamesamplify6627f3d4-6627f3d4-dev.auth.us-east-1.amazoncognito.com/login?response_type=code&client_id=78vpjea306q8ooa5qd74kbint4&redirect_uri=https://main.dgcxtis8n2kl8.amplifyapp.com/
+
+
 // Custom login page (facebook + local)
 import React, { useState, useEffect } from "react";
 import { Form, Container, Row, Col } from "react-bootstrap";
@@ -20,6 +24,7 @@ function Login(props) {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const FACEBOOK_ID = process.env.FACEBOOK_ID;
 
   function validateForm() {
     return email.length > 0 && password.length > 0;
@@ -106,7 +111,7 @@ function Login(props) {
         // init the fb sdk client
         const fb = window.FB;
         fb.init({
-            appId   : '197530488546623',
+            appId   : process.env.AMPLIFY_FACEBOOK_CLIENT_ID,
             cookie  : true,
             xfbml   : true,
             version : 'v2.11'
@@ -166,93 +171,3 @@ function Login(props) {
 }
 
 export default withRouter(Login)
-
-
-// Facebook login testing
-// import React, { useEffect } from 'react';
-// import { Auth } from 'aws-amplify';
-// // To federated sign in from Facebook
-// const Login = () => {
-
-//     useEffect(() => {
-//         if (!window.FB) createScript();
-//     }, [])
-
-//     const signIn = () => {
-//         const fb = window.FB;
-//         fb.getLoginStatus(response => {
-//             if (response.status === 'connected') {
-//                 getAWSCredentials(response.authResponse);
-//             } else {
-//                 fb.login(
-//                     response => {
-//                         if (!response || !response.authResponse) {
-//                             return;
-//                         }
-//                         getAWSCredentials(response.authResponse);
-//                     },
-//                     {
-//                         // the authorized scopes
-//                         scope: 'public_profile,email'
-//                     }
-//                 );
-//             }
-//         });
-//     }
-
-//      const getAWSCredentials = (response) => {
-//             const { accessToken, expiresIn } = response;
-//             const date =new Date();
-//             const expires_at = expiresIn * 1000 + date.getTime();
-//             if (!accessToken) {
-//                 return;
-//             }
-
-//             const fb = window.FB;
-//             fb.api('/me', { fields: 'name,email' }, response => {
-//                 const user = {
-//                     name: response.name,
-//                     email: response.email
-//                 };
-//                 console.log((user))
-//                 Auth.federatedSignIn('facebook', { token: accessToken, expires_at }, user)
-//                 .then(credentials => {
-//                     console.log(credentials);
-//                 });
-//             });
-//         }
-
-//     const initFB = () => {
-//         const fb = window.FB;
-//         console.log('FB SDK initialized');
-//     }
-
-//     const createScript = () => {
-//       // load the sdk
-//       window.fbAsyncInit = fbAsyncInit;
-//       const script = document.createElement('script');
-//       script.src = 'https://connect.facebook.net/en_US/sdk.js';
-//       script.async = true;
-//       script.onload = initFB;
-//       document.body.appendChild(script);
-//   }
-
-//     const fbAsyncInit = () => {
-//         // init the fb sdk client
-//         const fb = window.FB;
-//         fb.init({
-//             appId   : '197530488546623',
-//             cookie  : true,
-//             xfbml   : true,
-//             version : 'v2.11'
-//         });
-//     }
-
-//     return (
-//         <div>
-//             <button onClick={signIn}>Sign in with Facebook</button>
-//         </div>
-//     );
-// }
-
-// export default Login;
