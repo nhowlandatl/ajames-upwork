@@ -1,5 +1,5 @@
 // **NOTE**
-// Logging into facebook works and it receives token credentials, but it won't provide permissions to access the Cognito user pool group. It seems  you must use the hosted Cognito UI for Federated logins to read the Cognito user pool info. This is a documented issue with no AWS resolution. See https://github.com/aws-amplify/amplify-js/issues/399
+// Logging into facebook works and it receives token credentials, but it won't provide permissions to access the Cognito user pool group. It seems you must use the hosted Cognito UI for Federated logins to read the Cognito user pool info. This is a documented issue with no AWS resolution. See https://github.com/aws-amplify/amplify-js/issues/399
 
 // Custom login page (facebook + local)
 import React, { useState, useEffect } from "react";
@@ -82,6 +82,7 @@ function Login(props) {
             Auth.federatedSignIn('facebook', { token: accessToken, expires_at }, user)
             .then(credentials => {
                 console.log(credentials);
+                history.push('/')
             });
         });
     }
