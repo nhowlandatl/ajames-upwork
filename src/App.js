@@ -33,7 +33,8 @@ class App extends Component {
       admin: false,
       regular: false,
       userInfo: null,
-      isLoading: false
+      isLoading: false,
+      facebookInfo: ""
     };
   }
 
