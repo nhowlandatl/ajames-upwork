@@ -18,7 +18,7 @@ class Regular extends React.Component {
                     <h2>You are viewing the non-admin board</h2>
                 </div>
                 }
-                {this.props.facebookInfo.name && this.props.admin === false &&
+                {this.props.facebookInfo && this.props.admin === false &&
                 <div>
                     <h2>Hello, {this.props.facebookInfo.name}</h2> 
                     <h2>You are viewing the non-admin board</h2>
