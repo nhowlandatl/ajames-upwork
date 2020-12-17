@@ -48,6 +48,7 @@ class App extends Component {
         admin: false,
         regular: false,
         userInfo: null,
+        facebookInfo: null
       })
       // Redirect to login page
       this.props.history.push('/login')
@@ -63,9 +64,9 @@ class App extends Component {
     .then(user => {
       this.setState({
         loggedIn: true,
-        currentUser: user
+        facebookInfo: user
       })
-      console.log(user)
+      console.log(this.state.facebookInfo.user)
     })
     .catch(e => 
       console.log("you need to log in first")
@@ -160,12 +161,14 @@ class App extends Component {
                 admin={this.state.admin}
                 currentUser={this.state.currentUser}
                 userInfo={this.state.userInfo}
+                facebookInfo={this.state.facebookInfo}
               />
               {/* Regular is the non-admin dashboard for now */}
               <Regular
                 regular={this.state.regular}
                 currentUser={this.state.currentUser}
                 userInfo={this.state.userInfo}
+                facebookInfo={this.state.facebookInfo}
               />
             </Route>
             {/* Main Settings page */}
