@@ -59,6 +59,17 @@ class App extends Component {
   }
 
   async onLoad() {
+    await Auth.currentUserPoolUser()
+    .then(user => {
+      console.log(user)
+      this.setState({
+        loggedIn: true,
+        facebookInfo: user
+      })
+    })
+    .catch(e => 
+      console.log("you need to log in first")
+    )
     // Retrieve facebook user if logged in via /login route and not hosted UI portal. It seems you cannot access user pool group info (e.g., admin/regular) from FB login unless you use the Hosted UI portal. 
     await Auth.currentAuthenticatedUser()
     .then(user => {
