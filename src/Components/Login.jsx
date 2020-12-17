@@ -71,7 +71,9 @@ const Login = () => {
                     email: response.email
                 };
                 console.log((user))
-
+                Auth.currentAuthenticatedUser(user => {
+                  console.log(user)
+                })
                 Auth.federatedSignIn('facebook', { token: accessToken, expires_at }, user)
                 .then(credentials => {
                     console.log(credentials);
