@@ -63,7 +63,7 @@ class App extends Component {
     .then(user => {
       this.setState({
         loggedIn: true,
-        userInfo: user
+        currentUser: user
       })
       console.log(user)
     })
@@ -79,7 +79,7 @@ class App extends Component {
         })
         console.log(user.accessToken.payload)
         // Set to Regular state if Cognito group is "Regular"
-        // Position[0] in array will be the group identity.
+        // Need to change logic to sort through "groups" array and choose the highest status group and not just position[0] in array
         if(user.accessToken.payload['cognito:groups'][0] === "Regular") {
           this.setState({ 
             regular: true 
