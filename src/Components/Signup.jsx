@@ -15,7 +15,7 @@ import awsconfig from '../aws-exports';
 Amplify.configure(awsconfig);
 
 
-function Signup() {
+function Signup(props) {
   const [fields, handleFieldChange] = useFormFields({
     email: "",
     password: "",
@@ -107,64 +107,74 @@ function Signup() {
 
   function renderForm() {
     return (
-    <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="email" size="lg">
-          <Form.Label>Email</Form.Label>
-          <Form.Control
-            autoFocus
-            type="email"
-            value={fields.email}
-            onChange={handleFieldChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="firstName" size="lg">
-          <Form.Label>First name</Form.Label>
-          <Form.Control
-            autoFocus
-            type="firstName"
-            value={fields.firstName}
-            onChange={handleFieldChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="lastName" size="lg">
-          <Form.Label>Last name</Form.Label>
-          <Form.Control
-            autoFocus
-            type="lastName"
-            value={fields.lastName}
-            onChange={handleFieldChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="password" size="lg">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            value={fields.password}
-            onChange={handleFieldChange}
-          />
-        </Form.Group>
-        <Form.Group controlId="confirmPassword" size="lg">
-          <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            onChange={handleFieldChange}
-            value={fields.confirmPassword}
-          />
-        </Form.Group>
-        <LoaderButton
-          block
-          size="lg"
-          type="submit"
-          variant="success"
-          isLoading={isLoading}
-          disabled={!validateForm()}
-        >
-          Signup
-        </LoaderButton>
-        <Link to="/login">Already have an account? Sign in</Link>
-      </Form>
+        <div>
+            {props.loggedIn === true &&
+            <div>
+                You are already logged in
+            </div>
+             }
+            {props.loggedIn === false &&
+            <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="email" size="lg">
+                <Form.Label>Email</Form.Label>
+                <Form.Control
+                    autoFocus
+                    type="email"
+                    value={fields.email}
+                    onChange={handleFieldChange}
+                />
+                </Form.Group>
+                <Form.Group controlId="firstName" size="lg">
+                <Form.Label>First name</Form.Label>
+                <Form.Control
+                    autoFocus
+                    type="firstName"
+                    value={fields.firstName}
+                    onChange={handleFieldChange}
+                />
+                </Form.Group>
+                <Form.Group controlId="lastName" size="lg">
+                <Form.Label>Last name</Form.Label>
+                <Form.Control
+                    autoFocus
+                    type="lastName"
+                    value={fields.lastName}
+                    onChange={handleFieldChange}
+                />
+                </Form.Group>
+                <Form.Group controlId="password" size="lg">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    value={fields.password}
+                    onChange={handleFieldChange}
+                />
+                </Form.Group>
+                <Form.Group controlId="confirmPassword" size="lg">
+                <Form.Label>Confirm Password</Form.Label>
+                <Form.Control
+                    type="password"
+                    onChange={handleFieldChange}
+                    value={fields.confirmPassword}
+                />
+                </Form.Group>
+                <LoaderButton
+                block
+                size="lg"
+                type="submit"
+                variant="success"
+                isLoading={isLoading}
+                disabled={!validateForm()}
+                >
+                Signup
+                </LoaderButton>
+                <Link to="/login">Already have an account? Sign in</Link>
+            </Form>
+            }
+        </div>
     );
   }
+  
 
   return (
     <div className="Signup">

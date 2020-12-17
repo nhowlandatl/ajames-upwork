@@ -9,6 +9,7 @@ import { LinkContainer } from "react-router-bootstrap";
 // Components
 import Admin from './Components/Admin.jsx' // Admin user dashboard view
 import Regular from './Components/Regular.jsx' // Regular user dashboard view
+import Alert from './Components/Alert.jsx'
 // import Routes from './Routes.jsx' Modify to use a Routes file and add validation to them
 import NotFound from './Components/NotFound.jsx'
 import Settings from './Components/Settings.jsx' 
@@ -36,10 +37,23 @@ class App extends Component {
     };
   }
 
+  // Logout function
   async handleLogout() {
     await Auth.signOut()
-    this.setState({
-      loggedIn: false
+    .then((res) => {
+      console.log(res)
+      // Clear session state
+      this.setState({
+        loggedIn: false,
+        admin: false,
+        regular: false,
+        userInfo: null,
+      })
+      // Redirect to login page
+      this.props.history.push('/login')
+    })
+    .catch(e => {
+      console.log(e)
     })
   }
 
@@ -68,7 +82,7 @@ class App extends Component {
         }
       })
       .catch(e => 
-        alert(e + ": You need to log in first")
+        console.log("you need to log in first")
       )
       // Get current user name/email
       await Auth.currentUserInfo()
@@ -81,7 +95,7 @@ class App extends Component {
           })
       })
       .catch(e => 
-        alert(e + ": You need to log in first")
+        console.log("You need to login")
         // Redirect to login programatically
       )
   }
@@ -108,7 +122,7 @@ class App extends Component {
                 <Nav.Link href="/login">Signup or Login</Nav.Link>
                 }
                 {this.state.loggedIn === true &&
-                  <Nav.Link onClick={this.handleLogout}>Logout</Nav.Link>
+                  <Nav.Link onClick={this.handleLogout.bind(this)}>Logout</Nav.Link>
                 }
                 {this.state.loggedIn === true &&
                <LinkContainer to="/settings">
@@ -124,18 +138,19 @@ class App extends Component {
                   <span className="sr-only">Loading...</span>
                 </Spinner>
               }
-            {/* Default homepage after login/register redirect */}
+            {/* Default homepage after login/signup redirect */}
             <Route exact path ="/">
+              {this.state.loggedIn === false &&
+                <Alert/>
+              }
               {/* Admin is the admin dashboard for now */}
               <Admin 
-                loggedIn={this.state.loggedIn}
                 admin={this.state.admin}
                 currentUser={this.state.currentUser}
                 userInfo={this.state.userInfo}
               />
               {/* Regular is the non-admin dashboard for now */}
               <Regular
-                loggedIn={this.state.loggedIn}
                 regular={this.state.regular}
                 currentUser={this.state.currentUser}
                 userInfo={this.state.userInfo}
@@ -171,10 +186,12 @@ class App extends Component {
             </Route>
             <Route exact path="/signup">
               <Signup 
+              loggedIn={this.state.loggedIn}
               />
             </Route>
             <Route exact path="/login">
               <Login 
+              loggedIn={this.state.loggedIn}
               />
             </Route>
             {/* Catch-all route for error */}

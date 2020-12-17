@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Container, Row, Col } from "react-bootstrap";
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, withRouter } from "react-router-dom";
 
 // Components
 import FacebookLogin from 'react-facebook-login';
@@ -10,8 +10,7 @@ import "./Login.css";
 // AWS
 import { Auth } from "aws-amplify";
 
-
-export default function Login() {
+function Login(props) {
   const history = useHistory();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +24,7 @@ export default function Login() {
   
     try {
       await Auth.signIn(email, password);
-      history.push('/')
+      window.location.href="/"; 
     } catch (e) {
       alert(e.message);
     }
@@ -33,6 +32,12 @@ export default function Login() {
   
   return (
     <div className="Login">
+        {props.loggedIn === true &&
+        <div>
+            You are already logged in
+        </div>
+        }
+        {props.loggedIn === false &&
         <Container> 
             <Row className="justify-content-md-center">
                 <Col xs={5.5}>
@@ -70,9 +75,10 @@ export default function Login() {
                     </Form>
                 </Col>
             </Row>
-        
         </Container>
-      
+        }
     </div>
   );
 }
+
+export default withRouter(Login)

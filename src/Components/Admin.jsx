@@ -1,6 +1,7 @@
 // ./components/Admin.jsx
 
-// Don't think I need to use private route since root (App.js) already phones home to AWS
+// Don't think I need to use private route since root (App.js) already phones home to AWS and back-end operations require a JWT token.
+
 // import PrivacyHOC from '../HOCs/PrivacyHOC.jsx' 
 import React from 'react';
 
