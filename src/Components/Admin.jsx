@@ -19,6 +19,13 @@ class Admin extends React.Component {
                     <h2>You are viewing the administrator board</h2>
                 </div>
                 }
+                {/* Message if logging in via custom Facebook login.. ** Cannot retrieve group ID this way */}
+                {this.props.currentUser &&
+                <div>
+                    <h2>Hello, {this.props.currentUser.name}</h2> 
+                    <h2>You are viewing the administrator board</h2>
+                </div>
+                }
             </Container>
         )
     }
