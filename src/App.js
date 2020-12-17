@@ -95,8 +95,8 @@ class App extends Component {
           })
       })
       .catch(e => 
-        console.log("You need to login")
-        // Redirect to login programatically
+        console.log(e)
+        // Optionally redirect to login programatically here
       )
   }
 
