@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^12.1.10",
     "aws-amplify": "^3.3.11",
     "bootstrap": "^4.5.3",
+    "fb": "^2.0.0",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
     "react-dom": "^17.0.1",
