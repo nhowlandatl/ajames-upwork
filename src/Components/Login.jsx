@@ -70,6 +70,7 @@ const Login = () => {
                     name: response.name,
                     email: response.email
                 };
+                console.log((user))
 
                 Auth.federatedSignIn('facebook', { token: accessToken, expires_at }, user)
                 .then(credentials => {
