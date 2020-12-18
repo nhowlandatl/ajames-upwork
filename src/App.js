@@ -150,18 +150,17 @@ class App extends Component {
                   <span className="sr-only">Loading...</span>
                 </Spinner>
               }
-               {/* Admin is the admin dashboard for now */}
-               <Admin exact path="/admin"
-                admin={this.state.admin}
-                currentUser={this.state.currentUser}
-                userInfo={this.state.userInfo}
-              />
             {/* Default homepage after login/signup redirect */}
             <Route exact path ="/">
               {this.state.loggedIn === false &&
                 <Alert/>
               }
-             
+              {/* Admin is the admin dashboard for now */}
+              <Admin
+                admin={this.state.admin}
+                currentUser={this.state.currentUser}
+                userInfo={this.state.userInfo}
+              />
               {/* Regular is the non-admin dashboard for now */}
               <Regular
                 regular={this.state.regular}
